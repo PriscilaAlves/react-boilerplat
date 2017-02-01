@@ -1,7 +1,7 @@
 {
-  "name": "boilerplate",
+  "name": "Front-End Recording Demo",
   "version": "1.0.0",
-  "description": "Simple React App",
+  "description": "Demonstrator that acquires ECG and PPG signals.",
   "main": "index.js",
   "scripts": {
     "test": "karma start",
