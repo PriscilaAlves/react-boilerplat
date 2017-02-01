@@ -77,6 +77,7 @@ var DemoApp = React.createClass({
         });
         $("#recordButton").text("Record");
         $("#selectedUser").val("");
+        clearInterval(this.timer);
     },
     onButtonClick: function () {
         if (this.state.acquiring && this.state.acquiring !=null) {
@@ -90,6 +91,9 @@ var DemoApp = React.createClass({
             if (selectedUser != "") {
                 $("#selectedUser").removeClass("warning-input");
                 var context = this;
+                this.setState({
+                    acquiring: null
+                });
                 this.countdown(3000, function () {
                     context.startAcquition(selectedUser);
                     context.countdown(30000, function () {
