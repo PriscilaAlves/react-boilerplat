@@ -1,5 +1,5 @@
 {
-  "name": "Front-End Recording Demo",
+  "name": "RecordingDemo",
   "version": "1.0.0",
   "description": "Demonstrator that acquires ECG and PPG signals.",
   "main": "index.js",
