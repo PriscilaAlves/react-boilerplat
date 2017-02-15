@@ -3,6 +3,7 @@ var FlotGraph = require("FlotGraph");
 var WebsocketAPI = require('WebsocketAPI');
 var Header = require('Header');
 var Loading = require('Loading');
+var InputBox = require("InputBox");
 
 var DemoApp = React.createClass({
     getInitialState: function () {
@@ -13,6 +14,7 @@ var DemoApp = React.createClass({
             msgToSend: {},
             acquiring: null,
             isLoading: true,
+            requestingGT: false,
             users: [],
             time: 0
         };
@@ -62,9 +64,9 @@ var DemoApp = React.createClass({
             }
         }, 1000);
     },
-    startAcquition: function (user) {
+    startAcquition: function (user, gt) {
         this.setState({
-            msgToSend: {'Command': 'acquire', 'user': user},
+            msgToSend: {'Command': 'acquire', 'user': user, 'gt': gt},
             acquiring: true
         });
         $("#recordButton").text("Stop");
@@ -86,25 +88,39 @@ var DemoApp = React.createClass({
         } else if (this.state.acquiring == null) {
             console.log("null");
         } else {
+
             var selectedUser = $('#selectedUser').val().replace(/\s/g, '');
-            console.log("selected user: " + selectedUser);
             if (selectedUser != "") {
                 $("#selectedUser").removeClass("warning-input");
-                var context = this;
                 this.setState({
-                    acquiring: null
+                    requestingGT: true
                 });
-                this.countdown(3000, function () {
-                    context.startAcquition(selectedUser);
-                    context.countdown(30000, function () {
-                        context.stopAcquisition();
-                    });
-                });
+                document.getElementById("recordButton").disabled = true;
             } else {
                 $("#selectedUser").addClass("warning-input");
             }
 
         }
+    },
+    onGTButtonClick: function () {
+        console.log("GT button clicked");
+        this.setState({
+            requestingGT: false
+        });
+        document.getElementById("recordButton").disabled = false;
+        var selectedUser = $('#selectedUser').val().replace(/\s/g, '');
+        var gt = $("#inputGT").val();
+        console.log("GT: ", gt);
+        var context = this;
+        this.setState({
+            acquiring: null
+        });
+        this.countdown(3000, function () {
+            context.startAcquition(selectedUser, gt);
+            context.countdown(30000, function () {
+                context.stopAcquisition();
+            });
+        });
     },
     render: function () {
         var options = {
@@ -114,7 +130,7 @@ var DemoApp = React.createClass({
     		yaxis: {show:false},
     		grid: {backgroundColor: "transparent" ,borderColor:"transparent",borderWidth:1}
     	};
-        var {dataECG, dataIR, dataRED, isLoading} = this.state;
+        var {dataECG, dataIR, dataRED, isLoading, requestingGT} = this.state;
         var h = $(document).height();
         var plotHeight = Math.round(((h-63)/3)-70);
 
@@ -130,6 +146,7 @@ var DemoApp = React.createClass({
                         </div>
                     </div>
                 </div>
+                <InputBox requestGT={requestingGT} handleClick={this.onGTButtonClick} />
                 <Loading loading={isLoading}/>
                 <WebsocketAPI url="ws://localhost:8000" onMessage={this.handleData} data={this.state.msgToSend}/>
             </div>
