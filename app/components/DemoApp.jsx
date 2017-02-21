@@ -102,15 +102,19 @@ var DemoApp = React.createClass({
 
         }
     },
-    onGTButtonClick: function () {
+    onGTButtonClick: function (e) {
+        var gt = $("#inputGT").val();
+        console.log("GT: ", gt);
+        if (gt.length == 0) {
+            gt = 0;
+        }
         console.log("GT button clicked");
         this.setState({
             requestingGT: false
         });
         document.getElementById("recordButton").disabled = false;
         var selectedUser = $('#selectedUser').val().replace(/\s/g, '');
-        var gt = $("#inputGT").val();
-        console.log("GT: ", gt);
+
         var context = this;
         this.setState({
             acquiring: null

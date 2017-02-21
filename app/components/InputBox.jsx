@@ -1,6 +1,11 @@
 var React = require("react");
 
 var InputBox = React.createClass({
+    handleSubmit: function (e) {
+        e.preventDefault();
+        this.props.handleClick();
+        
+    },
     render: function () {
         var {requestGT} = this.props;
         if (requestGT) {
@@ -10,7 +15,7 @@ var InputBox = React.createClass({
                         <h4>Insert ground truth</h4>
                     </div>
                     <div className="infoBoxContent">
-                        <form>
+                        <form onSubmit={this.handleSubmit}>
                             <div className="row">
                                 <div className="small-3 columns">
                                     <label for="middle-label" className="text-right middle">SPO2:</label>
