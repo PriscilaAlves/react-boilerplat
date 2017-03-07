@@ -4,7 +4,7 @@ var InputBox = React.createClass({
     handleSubmit: function (e) {
         e.preventDefault();
         this.props.handleClick();
-        
+
     },
     render: function () {
         var {requestGT} = this.props;
@@ -22,6 +22,14 @@ var InputBox = React.createClass({
                                 </div>
                                 <div className="small-9 columns">
                                     <input type="text" id="middle-label" placeholder="" id="inputGT" />
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="small-3 columns">
+                                    <label for="middle-label" className="text-right middle">Blood Pressure (High/Low):</label>
+                                </div>
+                                <div className="small-9 columns">
+                                    <input type="text" id="middle-label" placeholder="" id="inputBP" />
                                 </div>
                             </div>
                             <div className="row">

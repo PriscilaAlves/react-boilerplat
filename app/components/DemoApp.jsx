@@ -64,9 +64,9 @@ var DemoApp = React.createClass({
             }
         }, 1000);
     },
-    startAcquition: function (user, gt) {
+    startAcquition: function (user, spo2, bp) {
         this.setState({
-            msgToSend: {'Command': 'acquire', 'user': user, 'gt': gt},
+            msgToSend: {'Command': 'acquire', 'user': user, 'spo2': spo2, 'bp': bp},
             acquiring: true
         });
         $("#recordButton").text("Stop");
@@ -103,8 +103,8 @@ var DemoApp = React.createClass({
         }
     },
     onGTButtonClick: function (e) {
-        var gt = $("#inputGT").val();
-        console.log("GT: ", gt);
+        var spo2 = $("#inputGT").val();
+        var bp = $("#inputBP").val();
         if (gt.length == 0) {
             gt = 0;
         }
@@ -120,7 +120,7 @@ var DemoApp = React.createClass({
             acquiring: null
         });
         this.countdown(3000, function () {
-            context.startAcquition(selectedUser, gt);
+            context.startAcquition(selectedUser, spo2, bp);
             context.countdown(30000, function () {
                 context.stopAcquisition();
             });
