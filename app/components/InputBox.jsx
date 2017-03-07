@@ -17,19 +17,27 @@ var InputBox = React.createClass({
                     <div className="infoBoxContent">
                         <form onSubmit={this.handleSubmit}>
                             <div className="row">
-                                <div className="small-3 columns">
+                                <div className="small-4 columns">
                                     <label for="middle-label" className="text-right middle">SPO2:</label>
                                 </div>
-                                <div className="small-9 columns">
+                                <div className="small-8 columns">
                                     <input type="text" id="middle-label" placeholder="" id="inputGT" />
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="small-3 columns">
-                                    <label for="middle-label" className="text-right middle">Blood Pressure (High/Low):</label>
+                                <div className="small-4 columns">
+                                    <label for="middle-label" className="text-right middle">BP High:</label>
                                 </div>
-                                <div className="small-9 columns">
-                                    <input type="text" id="middle-label" placeholder="" id="inputBP" />
+                                <div className="small-8 columns">
+                                    <input type="text" id="middle-label" placeholder="" id="inputBPHigh" />
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="small-4 columns">
+                                    <label for="middle-label" className="text-right middle">BP Low:</label>
+                                </div>
+                                <div className="small-8 columns">
+                                    <input type="text" id="middle-label" placeholder="" id="inputBPLow" />
                                 </div>
                             </div>
                             <div className="row">
